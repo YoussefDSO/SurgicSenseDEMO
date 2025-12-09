@@ -482,3 +482,61 @@ height: auto;
 .menu-btn:hover {
     background: #ddd;
 }
+/* Login Box Styles */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Centrerar vertikalt */
+}
+
+.login-box {
+    background-color: white;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 300px;
+}
+
+.login-box h2 {
+    color: #C1002A; /* Röd färg som header */
+    margin-bottom: 1.5rem;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #C1002A;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #000;       /* Synlig text */
+    background-color: #fff; /* Vit bakgrund */
+}
+
+.login-box input::placeholder {
+    color: #999;       /* Placeholder-text */
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #C1002A;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-box button:hover {
+    background-color: #a00025;
+}
+
+.login-box .error {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
