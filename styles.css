@@ -460,13 +460,25 @@ height: auto;
     }
 }
 /* ===== Surgeons Menu Buttons ===== */
-.menu {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 200px;
-    margin: 40px auto;
+.menu-btn {
+    padding: 14px;
+    text-align: center;
+    background: #f9f9f9;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    transition: all 0.25s ease;
 }
+
+.menu-btn:hover {
+    background-color: #C1002A;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
 
 .menu-btn {
     padding: 12px;
@@ -539,4 +551,39 @@ height: auto;
     color: red;
     margin-top: 10px;
     font-size: 0.9rem;
+}
+/* Surgeons Dashboard Styling */
+.surgeons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrerar rubrik och knappar */
+    margin-top: 50px;
+}
+
+.dashboard-title {
+    color: #C1002A; /* Röd färg som header */
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 3px solid #C1002A; /* Dekorativ linje under rubrik */
+    padding-bottom: 10px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column; /* Knappar under varandra */
+    gap: 15px;
+    width: 200px; /* Standardbredd på knappar */
+}
+
+.menu-btn {
+    border: 1px solid #C1002A; /* Liten röd ram som matchar temat */
+    transition: all 0.25s ease;
+}
+
+.menu-btn:hover {
+    background-color: #C1002A;
+    color: white;
+    box-shadow: 0 4px 8px rgba(193,0,42,0.3);
+    transform: translateY(-2px);
 }
