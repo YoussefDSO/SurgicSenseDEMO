@@ -587,3 +587,92 @@ height: auto;
     box-shadow: 0 4px 8px rgba(193,0,42,0.3);
     transform: translateY(-2px);
 }
+.segment-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.segment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.segment-results {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.segment-box {
+    width: 100%;
+    text-align: center;
+}
+
+.placeholder {
+    height: 220px;
+    border: 2px dashed #C1002A;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+}
+.segment-form label {
+    font-weight: 600;
+    color: #C1002A;
+    margin-bottom: 5px;
+}
+/* ===== Edit Profile Page ===== */
+.profile-container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.profile-container h2 {
+    color: #C1002A;
+    margin-bottom: 20px;
+}
+
+.profile-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #C1002A;
+    font-size: 1rem;
+}
+
+.profile-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #C1002A;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.profile-container button:hover {
+    background-color: #a00025;
+}
+
+.success-message {
+    margin-top: 15px;
+    color: green;
+    font-weight: 500;
+}
+.menu-btn#saveBtn {
+    border: 2px solid #C1002A;
+}

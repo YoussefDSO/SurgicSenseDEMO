@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Röd header + logga (samma som resten av sidan) -->
+    <header class="top-header">
+        <div class="header-left">
+            <img src="Images/download.png" alt="Logo">
+            <h1>Advancing Medicine with Technology & AI</h1>
+        </div>
+    </header>
+
+    <div class="profile-container">
+        <h2>Edit Profile</h2>
+
+        <form id="profileForm">
+            <input type="text" placeholder="Full name" required>
+            <input type="email" placeholder="Email address" required>
+
+            <button type="submit">Save changes</button>
+        </form>
+
+        <p id="saveMessage" class="success-message"></p>
+    </div>
+
+    <script>
+        const form = document.getElementById("profileForm");
+        const message = document.getElementById("saveMessage");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            message.textContent = "Profile updated successfully.";
+        });
+    </script>
+
+</body>
+</html>

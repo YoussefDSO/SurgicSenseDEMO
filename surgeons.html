@@ -20,10 +20,14 @@
     
         <div class="menu">
             <a href="#" class="menu-btn">Upload Scan</a>
-            <a href="#" class="menu-btn">Segment</a>
-            <a href="#" class="menu-btn">Edit Profile</a>
-            <a href="#" class="menu-btn">Save</a>
+            <a href="segment.html" class="menu-btn">Segment</a>
+            <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
+            <a href="#" class="menu-btn">View</a>
+            <a href="#" class="menu-btn">Print</a>
+            <a href="#" class="menu-btn">Assess Wound</a>
+            <a href="#" class="menu-btn">Customizing</a>
             <a href="#" class="menu-btn logout-btn">Log Out</a>
+            <a href="#" class="menu-btn" id="saveBtn">Save</a>
         </div>
     </div>
     <script>
@@ -37,6 +41,14 @@
           window.location.href = "index.html"; // Home
         });
       </script>
-      
+      <script>
+        const saveBtn = document.getElementById("saveBtn");
+    
+        saveBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            alert("Your work has been saved successfully.");
+        });
+    </script>
+    
 </body>
 </html>
