@@ -1,42 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Surgeons Dashboard</title>
-    <link rel="stylesheet" href="styles.css"> <!-- använder befintlig CSS -->
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- använder befintlig CSS -->
+  </head>
+  <body>
     <header class="top-header">
-        <div class="header-left">
-            <img src="Images/download.png" alt="Logo">
-            <h1>Advancing Medicine with Technology & AI</h1>
-        </div>
+      <div class="header-left">
+        <img src="Images/download.png" alt="Logo" />
+        <h1>Advancing Medicine with Technology & AI</h1>
+      </div>
     </header>
-    
 
     <div class="surgeons-container">
-        <h1 class="dashboard-title">Surgeons Dashboard</h1>
-    
-        <div class="menu">
-            <a href="#" class="menu-btn">Upload Scan</a>
-            <a href="#" class="menu-btn">Segment</a>
-            <a href="#" class="menu-btn">Edit Profile</a>
-            <a href="#" class="menu-btn">Save</a>
-            <a href="#" class="menu-btn logout-btn">Log Out</a>
-        </div>
+      <h1 class="dashboard-title">Surgeons Dashboard</h1>
+
+      <div class="menu">
+        <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
+        <a href="#" class="menu-btn">Segment</a>
+        <a href="#" class="menu-btn">Edit Profile</a>
+        <a href="#" class="menu-btn">Save</a>
+        <a href="#" class="menu-btn logout-btn">Log Out</a>
+      </div>
     </div>
     <script>
-        const logoutBtn = document.querySelector(".logout-btn");
-      
-        logoutBtn.addEventListener("click", function (e) {
-          e.preventDefault();
-      
-          alert("You have been successfully logged out.");
-      
-          window.location.href = "index.html"; // Home
-        });
-      </script>
-      
-</body>
+      const logoutBtn = document.querySelector(".logout-btn");
+
+      logoutBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        alert("You have been successfully logged out.");
+
+        window.location.href = "index.html"; // Home
+      });
+    </script>
+  </body>
 </html>
