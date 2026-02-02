@@ -653,3 +653,70 @@ textarea:valid ~ label {
   font-weight: 500;
   display: none;
 }
+
+/* ===== Assess Wound Page ===== */
+
+.assess-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.assess-section {
+  border-left: 5px solid #c1002a;
+  padding-left: 1.5rem;
+}
+
+.assess-section h2 {
+  color: #c1002a;
+  margin-bottom: 0.5rem;
+}
+
+.assess-form {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.form-group select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.save-btn {
+  grid-column: span 2;
+  margin-top: 1.5rem;
+  padding: 12px;
+  background-color: #c1002a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #a00023;
+}
+
+.assess-form label {
+  position: static;
+  padding: 0;
+  color: #333;
+}
