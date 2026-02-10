@@ -162,29 +162,38 @@ let scale = 1;
 let rotation = 0;
 
 function zoomIn() {
-    scale += 0.1;
-    applyTransform();
+  scale += 0.1;
+  applyTransform();
 }
 
 function zoomOut() {
-    scale = Math.max(0.5, scale - 0.1);
-    applyTransform();
+  scale = Math.max(0.5, scale - 0.1);
+  applyTransform();
 }
 
 function rotate() {
-    rotation += 90;
-    applyTransform();
+  rotation += 90;
+  applyTransform();
 }
 
 function resetView() {
-    scale = 1;
-    rotation = 0;
-    applyTransform();
+  scale = 1;
+  rotation = 0;
+  applyTransform();
 }
 
 function applyTransform() {
-    const img = document.getElementById("scanImage");
-    if (img) {
-        img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-    }
+  const img = document.getElementById("scanImage");
+  if (img) {
+    img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+  }
+}
+
+// ===== Print =====
+const printBtn = document.getElementById("printBtn");
+
+if (printBtn) {
+  printBtn.addEventListener("click", () => {
+    window.print();
+  });
 }

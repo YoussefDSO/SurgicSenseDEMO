@@ -855,3 +855,31 @@ textarea:valid ~ label {
 .scan-controls button:hover {
   background-color: #a00025;
 }
+
+/* ===== Print Page ===== */
+
+.print-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.print-section {
+  border-left: 5px solid #c1002a;
+  padding-left: 1.5rem;
+}
+
+.print-preview {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.print-preview img {
+  max-width: 100%;
+  max-height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
