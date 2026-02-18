@@ -1,50 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Surgeons Dashboard</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <header class="top-header">
-      <div class="header-left">
-        <img src="Images/download.png" alt="Logo" />
-        <h1>Advancing Medicine with Technology & AI</h1>
-      </div>
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <title>Surgery Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
 
-    <div class="surgeons-container">
-      <h1 class="dashboard-title">Surgeons Dashboard</h1>
+<body class="simulator-body">
 
-      <div class="menu">
-        <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
-        <a href="segment.html" class="menu-btn">Segment</a>
-        <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
-        <a href="view.html" class="menu-btn">View</a>
-        <a href="print.html" class="menu-btn">Print</a>
-        <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
-        <a href="#" class="menu-btn">Customizing</a>
-        <a href="#" class="menu-btn logout-btn">Log Out</a>
-        <a href="#" class="menu-btn" id="saveBtn">Save</a>
-      </div>
+    <div class="simulator-wrapper">
+
+        <h1 class="sim-title">Surgery Simulator</h1>
+
+        <div class="simulator-container">
+
+            <!-- LEFT MENU -->
+            <div class="menu-panel">
+
+                <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
+                <a href="segment.html" class="menu-btn">Segment</a>
+                <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
+                <a href="view.html" class="menu-btn">View</a>
+                <a href="print.html" class="menu-btn">Print</a>
+                <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+
+                <a href="#" id="saveBtn" class="menu-btn">Save</a>
+                <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
+
+            </div>
+
+            <!-- RIGHT DISPLAY AREA -->
+            <div class="display-panel">
+    <h2>Simulation Panel</h2>
+
+
+    <div class="display-box">
+        <img src="Images/surgeon.png" alt="Surgeon">
+    </div>
+
+
+</div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <script>
-      const logoutBtn = document.querySelector(".logout-btn");
-      logoutBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        alert("You have been successfully logged out.");
-        window.location.href = "index.html";
-      });
+        // SAVE BUTTON
+        document.getElementById("saveBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            alert("Your work has been saved successfully.");
+        });
+
+        // LOGOUT BUTTON
+        document.getElementById("logoutBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            alert("You have been logged out.");
+            window.location.href = "index.html";
+        });
     </script>
 
-    <script>
-      const saveBtn = document.getElementById("saveBtn");
-      saveBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        alert("Your work has been saved successfully.");
-      });
-    </script>
-  </body>
+</body>
 </html>
