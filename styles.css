@@ -922,9 +922,11 @@ textarea:valid ~ label {
 /* RIGHT SIDE */
 .display-panel {
     flex: 1;
-    color: white;
-    text-align: left;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
 }
+
 
 .display-box {
     width: 100%;
@@ -947,4 +949,186 @@ textarea:valid ~ label {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.upload-content {
+    background: #f4ede3;
+    border-radius: 20px;
+    padding: 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.upload-content img {
+    margin-top: 30px;
+    max-width: 100%;
+}
+.page-title{
+
+margin-bottom:20px;
+
+}
+
+.segment-controls{
+
+display:flex;
+
+gap:10px;
+
+align-items:center;
+
+margin-bottom:20px;
+
+}
+
+.action-btn{
+
+padding:10px 16px;
+
+background:#c7202f;
+
+color:white;
+
+border:none;
+
+border-radius:5px;
+
+cursor:pointer;
+
+}
+
+.action-btn:hover{
+
+background:#a81824;
+
+}
+
+.segment-results{
+
+display:flex;
+
+gap:20px;
+
+width:100%;
+
+}
+
+.segment-box{
+
+flex:1;
+
+background:white;
+
+padding:15px;
+
+border-radius:8px;
+
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+
+}
+
+.image-box{
+
+height:200px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+background:#f0f0f0;
+
+border-radius:6px;
+
+}
+.menu-btn.active{
+background:#c7202f;
+color:white;
+}
+
+.menu-btn:hover{
+background:#c7202f;
+color:white;
+}
+.header-left img{
+height:55px;
+background:white;
+padding:6px;
+border-radius:6px;
+margin-right:15px;
+}
+/* FIX EDIT PROFILE LAYOUT */
+
+.profile-form{
+max-width:380px;
+width:100%;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+gap:10px;
+box-sizing:border-box;
+}
+
+.profile-form label{
+position:static;
+display:block;
+color:white;
+font-weight:600;
+}
+
+.profile-form input{
+width:100%;
+padding:10px;
+border-radius:6px;
+border:1px solid #ccc;
+box-sizing:border-box;
+}
+
+.update-btn{
+width:100%;
+padding:12px;
+background:#d62828;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+/* FIX EDIT PROFILE FORM INSIDE PANEL */
+
+.display-panel{
+overflow-y:auto;
+}
+
+.profile-form{
+max-width:350px;
+width:100%;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.profile-form label{
+position:static;
+font-size:14px;
+}
+
+.profile-form input{
+width:100%;
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+box-sizing:border-box;
+}
+
+.update-btn{
+width:100%;
+padding:10px;
+border:none;
+border-radius:6px;
+background:#d62828;
+color:white;
+cursor:pointer;
 }

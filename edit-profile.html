@@ -1,43 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Profile</title>
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
-<body>
 
-    <!-- Röd header + logga (samma som resten av sidan) -->
-    <header class="top-header">
-        <div class="header-left">
-            <img src="Images/download.png" alt="Logo">
-            <h1>Advancing Medicine with Technology & AI</h1>
-        </div>
-    </header>
+<body class="simulator-body">
 
-    <div class="profile-container">
-        <h2>Edit Profile</h2>
+<header class="top-header">
 
-        <form id="profileForm">
-            <input type="text" placeholder="Full name" required>
-            <input type="email" placeholder="Email address" required>
+<div class="header-left">
+<img src="images/logo.png" class="logo">
+<h3>Advancing Medicine with Technology & AI</h3>
+</div>
 
-            <button type="submit">Save changes</button>
-        </form>
+<div class="doctor-info">
+Dr. John Doe | Plastic Surgeon
+</div>
 
-        <p id="saveMessage" class="success-message"></p>
-    </div>
+</header>
 
-    <script>
-        const form = document.getElementById("profileForm");
-        const message = document.getElementById("saveMessage");
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            message.textContent = "Profile updated successfully.";
-        });
-    </script>
+<div class="simulator-wrapper">
+
+<div class="simulator-container">
+
+
+<!-- LEFT MENU -->
+
+<div class="menu-panel">
+
+<a href="upload-scan.html" class="menu-btn">Upload Scan</a>
+
+<a href="segment.html" class="menu-btn">Segment</a>
+
+<a href="edit-profile.html" class="menu-btn active">Edit Profile</a>
+
+<a href="view.html" class="menu-btn">View</a>
+
+<a href="print.html" class="menu-btn">Print</a>
+
+<a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+
+<a href="#" class="menu-btn">Save</a>
+
+<a href="index.html" class="menu-btn logout">Log Out</a>
+
+</div>
+
+
+<!-- RIGHT PANEL -->
+
+<div class="display-panel">
+
+<h2 class="page-title">Edit Profile</h2>
+
+<form class="profile-form">
+
+<label>Username</label>
+<input type="text" value="doctor">
+
+<label>Password</label>
+<input type="password" value="1234">
+
+<label>Full Name</label>
+<input type="text" value="Dr. John Doe">
+
+<label>Specialty</label>
+<input type="text" value="Plastic Surgeon">
+
+<label>Hospital</label>
+<input type="text" value="University Hospital">
+
+<label>Years of Experience</label>
+<input type="number" value="10">
+
+<button class="update-btn">Update Profile</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
 
 </body>
 </html>
