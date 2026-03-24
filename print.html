@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Print Scan</title>
+<title>Medical Report</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -27,8 +27,9 @@
 <a href="segment.html" class="menu-btn">Segment</a>
 <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
 <a href="view.html" class="menu-btn">View</a>
-<a href="print.html" class="menu-btn active">Print</a>
+
 <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+<a href="print.html" class="menu-btn active">Print</a>
 
 <a href="#" id="saveBtn" class="menu-btn">Save</a>
 <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
@@ -38,20 +39,23 @@
 <!-- RIGHT SIDE -->
 <div class="display-panel">
 
-<h2 class="page-title">Print Scan</h2>
-<p>Preview the scan before printing.</p>
+<h2 class="page-title">Medical Report</h2>
 
 <div class="print-preview">
 
-<img id="printImage" style="max-width:100%; max-height:350px; border-radius:10px; display:none;">
+<h3>Scan Result</h3>
+<img id="reportImage" style="max-width:100%; max-height:250px; border-radius:10px; display:none;">
 
 <p id="noImage">No scan available.</p>
+
+<h3>Assessment</h3>
+<ul id="assessmentList"></ul>
 
 </div>
 
 <br>
 
-<button id="printBtn" class="action-btn">Print Scan</button>
+<button id="printBtn" class="action-btn">Print Report</button>
 
 </div>
 
@@ -60,21 +64,47 @@
 
 <script>
 
-const image = document.getElementById("printImage");
+// HÄMTA CASE
+const caseData = JSON.parse(localStorage.getItem("currentCase"));
+
+const image = document.getElementById("reportImage");
 const message = document.getElementById("noImage");
+const list = document.getElementById("assessmentList");
 
-const savedImage = localStorage.getItem("uploadedScan");
+// VISA BILD
+if(caseData && (caseData.segmentedImage || caseData.scanImage)){
 
-if(savedImage){
-image.src = savedImage;
+image.src = caseData.segmentedImage || caseData.scanImage;
 image.style.display = "block";
 message.style.display = "none";
+
 }
 
+// VISA ASSESSMENT
+if(caseData && caseData.assessment){
+
+const a = caseData.assessment;
+
+list.innerHTML = `
+<li><strong>Size:</strong> ${a.size}</li>
+<li><strong>Depth:</strong> ${a.depth}</li>
+<li><strong>Necrotic Type:</strong> ${a.necroticType}</li>
+<li><strong>Necrotic Amount:</strong> ${a.necroticAmount}</li>
+<li><strong>Granulation Type:</strong> ${a.granulationType}</li>
+<li><strong>Granulation Amount:</strong> ${a.granulationAmount}</li>
+<li><strong>Edges:</strong> ${a.edges}</li>
+<li><strong>Skin:</strong> ${a.skin}</li>
+`;
+
+}else{
+list.innerHTML = "<li>No assessment data</li>";
+}
+
+// PRINT
 document.getElementById("printBtn").onclick = function(){
 
-if(!savedImage){
-alert("No scan available to print.");
+if(!caseData){
+alert("No data to print.");
 return;
 }
 
@@ -82,11 +112,13 @@ window.print();
 
 };
 
+// SAVE
 document.getElementById("saveBtn").onclick = function(e){
 e.preventDefault();
 alert("Your work has been saved successfully.");
 };
 
+// LOGOUT
 document.getElementById("logoutBtn").onclick = function(e){
 e.preventDefault();
 alert("You have been logged out.");

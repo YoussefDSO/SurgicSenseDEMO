@@ -11,7 +11,7 @@
 
 <header class="top-header">
 <div class="header-left">
-<img src="Images/logo.png" alt="Logo">
+<img src="Images/logo.png">
 <h1>Advancing Medicine with Technology & AI</h1>
 </div>
 </header>
@@ -19,28 +19,25 @@
 <div class="simulator-wrapper">
 <div class="simulator-container">
 
-<!-- LEFT MENU -->
 <div class="menu-panel">
 
 <a href="upload-scan.html" class="menu-btn active">Upload Scan</a>
 <a href="segment.html" class="menu-btn">Segment</a>
 <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
 <a href="view.html" class="menu-btn">View</a>
-<a href="print.html" class="menu-btn">Print</a>
 <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+<a href="print.html" class="menu-btn">Print</a>
 
 <a href="#" id="saveBtn" class="menu-btn">Save</a>
 <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
 
 </div>
 
-<!-- RIGHT PANEL -->
 <div class="display-panel">
 
 <h2 class="page-title">Upload Scan</h2>
 
 <button id="uploadBtn" class="action-btn">Choose Image</button>
-
 <input type="file" id="fileInput" accept="image/*" hidden>
 
 <button id="removeBtn" class="action-btn">Remove Scan</button>
@@ -48,11 +45,8 @@
 <p id="fileName">No file selected</p>
 
 <div class="preview-container">
-
 <img id="previewImage" style="display:none; max-width:100%; max-height:260px; border-radius:8px;">
-
 <p id="placeholder">Uploaded scan will appear here</p>
-
 </div>
 
 </div>
@@ -68,24 +62,14 @@ const placeholder = document.getElementById("placeholder");
 const fileName = document.getElementById("fileName");
 const removeBtn = document.getElementById("removeBtn");
 
-/* OPEN FILE SELECTOR */
-
-uploadBtn.onclick = function(){
-fileInput.click();
-};
-
-/* WHEN IMAGE SELECTED */
+uploadBtn.onclick = () => fileInput.click();
 
 fileInput.addEventListener("change", function(){
 
 const file = fileInput.files[0];
 
-if(!file){
-return;
-}
-
-if(!file.type.startsWith("image/")){
-alert("Please upload an image file.");
+if(!file || !file.type.startsWith("image/")){
+alert("Upload a valid image");
 return;
 }
 
@@ -98,12 +82,16 @@ const imageData = e.target.result;
 previewImage.src = imageData;
 previewImage.style.display = "block";
 placeholder.style.display = "none";
-
 fileName.textContent = file.name;
 
-/* SAVE IMAGE FOR OTHER PAGES */
+/* SKAPA CASE */
+const caseData = {
+scanImage: imageData,
+segmentedImage: null,
+assessment: null
+};
 
-localStorage.setItem("uploadedScan", imageData);
+localStorage.setItem("currentCase", JSON.stringify(caseData));
 
 };
 
@@ -111,11 +99,9 @@ reader.readAsDataURL(file);
 
 });
 
-/* REMOVE IMAGE */
-
 removeBtn.onclick = function(){
 
-localStorage.removeItem("uploadedScan");
+localStorage.removeItem("currentCase");
 
 previewImage.style.display = "none";
 placeholder.style.display = "block";
@@ -123,18 +109,13 @@ fileName.textContent = "No file selected";
 
 };
 
-/* SAVE */
-
-document.getElementById("saveBtn").onclick = function(e){
+document.getElementById("saveBtn").onclick = e => {
 e.preventDefault();
-alert("Your work has been saved successfully.");
+alert("Saved");
 };
 
-/* LOGOUT */
-
-document.getElementById("logoutBtn").onclick = function(e){
+document.getElementById("logoutBtn").onclick = e => {
 e.preventDefault();
-alert("You have been logged out.");
 window.location.href = "index.html";
 };
 
