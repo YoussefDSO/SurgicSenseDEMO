@@ -24,9 +24,10 @@
 <a href="segment.html" class="menu-btn">Segment</a>
 <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
 <a href="view.html" class="menu-btn active">View</a>
-<a href="print.html" class="menu-btn">Print</a>
+
 <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
-<a href="#" class="menu-btn">Save</a>
+<a href="print.html" class="menu-btn">Print</a>
+<a href="#" id="saveBtn" class="menu-btn">Save</a>
 <a href="index.html" class="menu-btn logout">Log Out</a>
 </div>
 
@@ -61,7 +62,23 @@ text.style.display = "none";
 
 }
 
+
+/* SAVE */
+
+document.getElementById("saveBtn").onclick = function(e){
+e.preventDefault();
+alert("Your work has been saved successfully.");
+};
+
+/* LOGOUT */
+
+document.getElementById("logoutBtn").onclick = function(e){
+e.preventDefault();
+alert("You have been logged out.");
+window.location.href = "index.html";
+};
+
 </script>
 
 </body>
-</ht
+</html>
