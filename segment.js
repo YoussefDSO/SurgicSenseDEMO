@@ -1,4 +1,49 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const API_BASE = "http://localhost:8000";
+
+  // =========================
+  // LOAD DEMO MODELS
+  // =========================
+  const select = document.getElementById("modelSelect");
+
+  fetch(`${API_BASE}/api/models`)
+    .then((res) => res.json())
+    .then((models) => {
+      models.forEach((model) => {
+        const option = document.createElement("option");
+
+        option.value = model.split(" ").pop();
+        option.textContent = model;
+
+        select.appendChild(option);
+      });
+    })
+    .catch((err) => console.error("Failed to load models:", err));
+
+  // =========================
+  // MODE SWITCH (🔥 НОВОЕ)
+  // =========================
+  const modeRadios = document.querySelectorAll('input[name="mode"]');
+  const demoSection = document.getElementById("demoSection");
+  const uploadSection = document.getElementById("uploadSection");
+
+  modeRadios.forEach((radio) => {
+    radio.addEventListener("change", () => {
+      if (radio.value === "demo" && radio.checked) {
+        demoSection.classList.remove("hidden");
+        uploadSection.classList.add("hidden");
+      }
+
+      if (radio.value === "upload" && radio.checked) {
+        demoSection.classList.add("hidden");
+        uploadSection.classList.remove("hidden");
+      }
+    });
+  });
+
+  // =========================
+  // PREVIEW (UPLOAD MODE)
+  // =========================
   document.getElementById("previewBtn")?.addEventListener("click", async () => {
     const obj = document.getElementById("objInput")?.files[0];
     const texture = document.getElementById("textureInput")?.files[0];
@@ -15,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("mtl_file", mtl);
 
     try {
-      const res = await fetch("http://localhost:8000/api/preview", {
+      const res = await fetch(`${API_BASE}/api/preview`, {
         method: "POST",
         body: formData,
       });
@@ -25,16 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await res.json();
-      console.log("Preview result:", data);
 
-      const previewBox = document.querySelector(
-        ".segment-results .segment-box:first-child .placeholder",
-      );
-
+      const previewBox = document.getElementById("preview");
       previewBox.innerHTML = "";
 
       const img = document.createElement("img");
-      img.src = `http://localhost:8000${data.texture_url}`;
+      img.src = `${API_BASE}${data.texture_url}`;
+      img.style.maxWidth = "100%";
 
       previewBox.appendChild(img);
     } catch (err) {
@@ -43,15 +85,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.getElementById("segmentBtn").addEventListener("click", async () => {
+  // =========================
+  // SEGMENT
+  // =========================
+  document.getElementById("segmentBtn")?.addEventListener("click", async () => {
     const mode = document.querySelector('input[name="mode"]:checked').value;
+
+    let model = document.getElementById("modelSelect").value;
+
+    const obj = document.getElementById("objInput")?.files[0];
+    const texture = document.getElementById("textureInput")?.files[0];
+    const mtl = document.getElementById("mtlInput")?.files[0];
+
     const formData = new FormData();
 
-    if (mode === "upload") {
-      const obj = document.getElementById("objInput").files[0];
-      const texture = document.getElementById("textureInput").files[0];
-      const mtl = document.getElementById("mtlInput").files[0];
+    // 👉 DEMO MODE
+    if (mode === "demo") {
+      if (!model) {
+        alert("Please select a model");
+        return;
+      }
 
+      formData.append("model_name", model);
+      formData.append("method", "kmeans Jay");
+    }
+
+    // 👉 UPLOAD MODE
+    if (mode === "upload") {
       if (!obj || !texture || !mtl) {
         alert("Please upload all files");
         return;
@@ -60,34 +120,29 @@ document.addEventListener("DOMContentLoaded", () => {
       formData.append("obj_file", obj);
       formData.append("texture_file", texture);
       formData.append("mtl_file", mtl);
+      formData.append("method", "kmeans Jay");
     }
-
-    if (mode === "demo") {
-      const model = document.getElementById("modelSelect").value;
-
-      if (!model) {
-        alert("Please select a model");
-        return;
-      }
-
-      formData.append("model_name", model);
-    }
-
-    formData.append("method", "kmeans");
 
     try {
-      const res = await fetch("http://localhost:8000/api/segment", {
+      const res = await fetch(`${API_BASE}/api/segment`, {
         method: "POST",
         body: formData,
       });
 
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("SERVER ERROR:", text);
+        throw new Error("Segmentation failed: " + res.status);
+      }
+
       const data = await res.json();
 
-      const resultBox = document.getElementById("resultBox");
+      const resultBox = document.getElementById("result");
       resultBox.innerHTML = "";
 
       const img = document.createElement("img");
-      img.src = `http://localhost:8000${data.texture_url}`;
+      img.src = `${API_BASE}${data.texture_url}`;
+      img.style.maxWidth = "100%";
 
       resultBox.appendChild(img);
     } catch (err) {
@@ -95,48 +150,47 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Segmentation failed");
     }
   });
+});
 
-  document.querySelectorAll(".upload-btn input").forEach((input) => {
-    input.addEventListener("change", () => {
-      const span = input.parentElement.querySelector("span");
-      if (input.files.length > 0) {
-        span.textContent = input.files[0].name;
-      }
-    });
+document.querySelectorAll(".upload-btn input").forEach((input) => {
+  input.addEventListener("change", () => {
+    const span = input.parentElement.querySelector("span");
+
+    if (input.files.length > 0) {
+      span.textContent = input.files[0].name;
+    }
   });
+});
 
-  const demoModels = [
-    "p1_1Leo_v1",
-    "p2_2Leo_v1",
-    "p3_3Leo_v1",
-    "hand_Bogdan",
-    "HP_00",
-  ];
+document.getElementById("objInput")?.addEventListener("change", (e) => {
+  document.getElementById("objLabel").textContent =
+    e.target.files[0]?.name || "Upload OBJ file";
+});
 
-  const select = document.getElementById("modelSelect");
+document.getElementById("textureInput")?.addEventListener("change", (e) => {
+  document.getElementById("textureLabel").textContent =
+    e.target.files[0]?.name || "Upload texture";
+});
 
-  demoModels.forEach((model) => {
-    const option = document.createElement("option");
-    option.value = model;
-    option.textContent = model;
-    select.appendChild(option);
-  });
+document.getElementById("mtlInput")?.addEventListener("change", (e) => {
+  document.getElementById("mtlLabel").textContent =
+    e.target.files[0]?.name || "Upload MTL file";
+});
 
-  const modeRadios = document.querySelectorAll('input[name="mode"]');
-  const demoContainer = document.getElementById("demoSelectContainer");
-  const uploadSection = document.getElementById("uploadSection");
+const modeRadios = document.querySelectorAll('input[name="mode"]');
+const demoSection = document.getElementById("demoSection");
+const uploadSection = document.getElementById("uploadSection");
 
-  modeRadios.forEach((radio) => {
-    radio.addEventListener("change", () => {
-      if (radio.value === "demo" && radio.checked) {
-        demoContainer.style.display = "block";
-        uploadSection.style.display = "none";
-      }
+modeRadios.forEach((radio) => {
+  radio.addEventListener("change", () => {
+    if (radio.value === "demo" && radio.checked) {
+      demoSection.classList.remove("hidden");
+      uploadSection.classList.add("hidden");
+    }
 
-      if (radio.value === "upload" && radio.checked) {
-        demoContainer.style.display = "none";
-        uploadSection.style.display = "block";
-      }
-    });
+    if (radio.value === "upload" && radio.checked) {
+      demoSection.classList.add("hidden");
+      uploadSection.classList.remove("hidden");
+    }
   });
 });

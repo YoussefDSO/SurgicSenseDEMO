@@ -5,6 +5,7 @@
     <title>Segmentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="segment.css" />
   </head>
 
   <body class="simulator-body">
@@ -32,13 +33,58 @@
         <div class="display-panel">
           <h2 class="page-title">Segmentation</h2>
 
-          <button id="segmentBtn" class="action-btn">Run Segmentation</button>
+          <div class="mode-switch">
+            <label class="mode-option">
+              <input type="radio" name="mode" value="demo" checked />
+              <span>Demo model</span>
+            </label>
 
-          <div style="margin-top: 20px">
+            <label class="mode-option">
+              <input type="radio" name="mode" value="upload" />
+              <span>Upload files</span>
+            </label>
+          </div>
+
+          <div class="segment-controls">
+            <div id="demoSection">
+              <select id="modelSelect" class="menu-btn">
+                <option value="">Select a scan</option>
+              </select>
+            </div>
+
+            <div id="uploadSection" class="hidden">
+              <div class="file-group">
+                <label class="upload-btn">
+                  <span id="objLabel">Upload OBJ file</span>
+                  <input type="file" id="objInput" accept=".obj" />
+                </label>
+              </div>
+
+              <div class="file-group">
+                <label class="upload-btn">
+                  <span id="textureLabel">Upload texture</span>
+                  <input type="file" id="textureInput" accept=".jpg,.png" />
+                </label>
+              </div>
+
+              <div class="file-group">
+                <label class="upload-btn">
+                  <span id="mtlLabel">Upload MTL file</span>
+                  <input type="file" id="mtlInput" accept=".mtl" />
+                </label>
+              </div>
+
+              <button id="previewBtn" class="action-btn">Preview</button>
+            </div>
+
+            <button id="segmentBtn" class="action-btn">Run Segmentation</button>
+          </div>
+
+          <div class="results">
             <h3>Uploaded Scan</h3>
             <div id="preview"></div>
 
-            <h3 style="margin-top: 20px">Segmentation Result</h3>
+            <h3>Segmentation Result</h3>
             <div id="result">No segmentation yet</div>
           </div>
         </div>
@@ -47,7 +93,6 @@
 
     <script>
       const preview = document.getElementById("preview");
-      const result = document.getElementById("result");
 
       const image = localStorage.getItem("originalScan");
 
@@ -59,23 +104,6 @@
       } else {
         preview.innerHTML = "No uploaded scan found.";
       }
-
-      document.getElementById("segmentBtn").onclick = function () {
-        if (!image) {
-          alert("Upload a scan first.");
-          return;
-        }
-
-        result.innerHTML =
-          '<div style="position:relative;display:inline-block;">' +
-          '<img src="' +
-          image +
-          '" style="max-width:100%;max-height:240px;border-radius:8px;">' +
-          '<div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(255,0,0,0.3);border-radius:8px;"></div>' +
-          "</div>";
-
-        localStorage.setItem("segmentedScan", image);
-      };
     </script>
 
     <script src="segment.js"></script>
