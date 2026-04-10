@@ -197,3 +197,23 @@ if (printBtn) {
     window.print();
   });
 }
+document.addEventListener("DOMContentLoaded", function () {
+
+  const checkbox = document.getElementById('ng-agree');
+  const btn = document.getElementById('ng-confirm-btn');
+
+  checkbox.addEventListener('change', function () {
+    if (this.checked) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  btn.addEventListener('click', function () {
+    if (!checkbox.checked) return;
+
+    document.getElementById('ng-overlay').style.display = 'none';
+  });
+
+});
