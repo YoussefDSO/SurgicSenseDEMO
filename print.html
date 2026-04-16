@@ -1,99 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Print Scan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="segment.css" />
+  </head>
 
-<head>
-<meta charset="UTF-8">
-<title>Print Scan</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
-</head>
+  <body class="simulator-body">
+    <header class="top-header">
+      <div class="header-left">
+        <img src="Images/logo.png" alt="Logo" />
+        <h1>Advancing Medicine with Technology & AI</h1>
+      </div>
+    </header>
 
-<body class="simulator-body">
+    <div class="simulator-wrapper">
+      <div class="simulator-container">
+        <!-- LEFT MENU -->
+        <div class="menu-panel">
+          <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
+          <a href="segment.html" class="menu-btn">Segment</a>
+          <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
+          <a href="view.html" class="menu-btn">View</a>
+          <a href="print.html" class="menu-btn active">Print</a>
+          <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+          <a href="#" id="saveBtn" class="menu-btn">Save</a>
+          <a href="index.html" id="logoutBtn" class="menu-btn logout"
+            >Log Out</a
+          >
+        </div>
 
-<header class="top-header">
-<div class="header-left">
-<img src="Images/logo.png" alt="Logo">
-<h1>Advancing Medicine with Technology & AI</h1>
-</div>
-</header>
+        <!-- RIGHT PANEL -->
+        <div class="display-panel">
+          <h2 class="page-title">Print Scan</h2>
+          <p class="page-subtitle">Preview before printing</p>
 
-<div class="simulator-wrapper">
-<div class="simulator-container">
+          <!-- PREVIEW CARD -->
+          <div class="print-card">
+            <img id="printImage" />
+            <p id="noImage">No scan available</p>
+          </div>
 
-<!-- LEFT MENU -->
-<div class="menu-panel">
+          <!-- BUTTON -->
+          <button id="printBtn" class="action-btn print-btn">Print Scan</button>
+        </div>
+      </div>
+    </div>
 
-<a href="upload-scan.html" class="menu-btn">Upload Scan</a>
-<a href="segment.html" class="menu-btn">Segment</a>
-<a href="edit-profile.html" class="menu-btn">Edit Profile</a>
-<a href="view.html" class="menu-btn">View</a>
-<a href="print.html" class="menu-btn active">Print</a>
-<a href="assess-wound.html" class="menu-btn">Assess Wound</a>
-
-<a href="#" id="saveBtn" class="menu-btn">Save</a>
-<a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
-
-</div>
-
-<!-- RIGHT SIDE -->
-<div class="display-panel">
-
-<h2 class="page-title">Print Scan</h2>
-<p>Preview the scan before printing.</p>
-
-<div class="print-preview">
-
-<img id="printImage" style="max-width:100%; max-height:350px; border-radius:10px; display:none;">
-
-<p id="noImage">No scan available.</p>
-
-</div>
-
-<br>
-
-<button id="printBtn" class="action-btn">Print Scan</button>
-
-</div>
-
-</div>
-</div>
-
-<script>
-
-const image = document.getElementById("printImage");
-const message = document.getElementById("noImage");
-
-const savedImage = localStorage.getItem("uploadedScan");
-
-if(savedImage){
-image.src = savedImage;
-image.style.display = "block";
-message.style.display = "none";
-}
-
-document.getElementById("printBtn").onclick = function(){
-
-if(!savedImage){
-alert("No scan available to print.");
-return;
-}
-
-window.print();
-
-};
-
-document.getElementById("saveBtn").onclick = function(e){
-e.preventDefault();
-alert("Your work has been saved successfully.");
-};
-
-document.getElementById("logoutBtn").onclick = function(e){
-e.preventDefault();
-alert("You have been logged out.");
-window.location.href = "index.html";
-};
-
-</script>
-
-</body>
+    <script src="print.js"></script>
+  </body>
 </html>

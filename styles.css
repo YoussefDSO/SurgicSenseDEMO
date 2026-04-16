@@ -746,31 +746,70 @@ textarea:valid ~ label {
 }
 
 /* ===== Print Page ===== */
-
-.print-container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+.page-subtitle {
+  text-align: center;
+  color: white;
+  opacity: 0.7;
+  margin-bottom: 20px;
 }
 
-.print-section {
-  border-left: 5px solid #c1002a;
-  padding-left: 1.5rem;
-}
+.print-card {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 20px auto;
 
-.print-preview {
-  margin: 2rem 0;
+  padding: 16px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
   text-align: center;
 }
 
-.print-preview img {
+#printImage {
+  /* display: none; */
   max-width: 100%;
-  max-height: 400px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-height: 300px;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+#printImage.show {
+  display: block;
+}
+
+#printBtn.print-btn {
+  width: 260px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* PRINT MODE */
+@media print {
+  body {
+    margin: 0;
+    background: white;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #printImage {
+    visibility: visible;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 95vw;
+    max-height: 95vh;
+
+    object-fit: contain;
+  }
 }
 /* ===== SURGERY SIMULATOR DESIGN ===== */
 

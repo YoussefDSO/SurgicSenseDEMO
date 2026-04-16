@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const img = document.createElement("img");
       img.src = `${API_BASE}${data.texture_url}?t=${Date.now()}`;
+      localStorage.setItem("lastResult", `${API_BASE}${data.texture_url}`);
 
       resultBox.appendChild(img);
     } catch (err) {
