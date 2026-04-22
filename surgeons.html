@@ -1,68 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Surgery Simulator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-<body class="simulator-body">
-
+  <body class="simulator-body">
     <div class="simulator-wrapper">
+      <!-- TITLE -->
+      <h1 class="sim-title">Surgery Simulator</h1>
 
-        <h1 class="sim-title">Surgery Simulator</h1>
+      <div class="simulator-container">
+        <!-- LEFT MENU -->
+        <div class="menu-panel">
+          <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
+          <a href="segment.html" class="menu-btn">Segment</a>
+          <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
+          <a href="view.html" class="menu-btn">View</a>
+          <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+          <a href="print.html" class="menu-btn">Print</a>
 
-        <div class="simulator-container">
-
-            <!-- LEFT MENU -->
-            <div class="menu-panel">
-
-                <a href="upload-scan.html" class="menu-btn">Upload Scan</a>
-                <a href="segment.html" class="menu-btn" >Segment</a>
-                <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
-                <a href="view.html" class="menu-btn">View</a>
-                <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
-                <a href="print.html" class="menu-btn">Print</a>
-
-                <a href="#" id="saveBtn" class="menu-btn">Save</a>
-                <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
-
-            </div>
-
-            <!-- RIGHT DISPLAY AREA -->
-            <div class="display-panel">
-    <h2>Simulation Panel</h2>
-
-
-    <div class="display-box">
-        <img src="Images/surgeon.png" alt="Surgeon">
-    </div>
-
-
-</div>
-
-            </div>
-
+          <a href="#" id="saveBtn" class="menu-btn">Save</a>
+          <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
         </div>
 
+        <!-- RIGHT PANEL -->
+        <div class="display-panel">
+          <div class="welcome-content">
+            <h2 class="page-title">Get Started</h2>
+
+            <p class="landing-text">
+              An AI-powered tool for wound segmentation and 3D scan analysis.
+              Follow the steps below to begin.
+            </p>
+
+            <div class="landing-steps">
+              <div class="step">1. Upload a scan (OBJ, MTL and texture)</div>
+              <div class="step">2. Run segmentation</div>
+              <div class="step">3. View results and prepare for printing</div>
+            </div>
+
+            <a href="upload-scan.html" class="start-btn"> Start with Upload </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
-        // SAVE BUTTON
-        document.getElementById("saveBtn").addEventListener("click", function(e) {
-            e.preventDefault();
-            alert("Your work has been saved successfully.");
+      // SAVE BUTTON
+      document
+        .getElementById("saveBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          alert("Your work has been saved successfully.");
         });
 
-        // LOGOUT BUTTON
-        document.getElementById("logoutBtn").addEventListener("click", function(e) {
-            e.preventDefault();
-            alert("You have been logged out.");
-            window.location.href = "index.html";
+      // LOGOUT BUTTON
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          alert("You have been logged out.");
+          window.location.href = "index.html";
         });
     </script>
-
-</body>
+  </body>
 </html>

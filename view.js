@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // const API_BASE = "http://localhost:8000";
-
   const viewer = document.getElementById("viewer");
 
   let scale = 1;
   let rotation = 0;
   let img = null;
+
+  // 👉 drag состояние
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let translateX = 0;
+  let translateY = 0;
 
   const model = localStorage.getItem("lastModelName");
 
@@ -37,15 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       viewer.appendChild(img);
 
-      applyTransform();
+      updateTransform();
     } catch {
       viewer.innerHTML = "<p>Failed to load image</p>";
     }
   }
 
-  function applyTransform() {
+  // =========================
+  // TRANSFORM
+  // =========================
+  function updateTransform() {
     if (!img) return;
-    img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
+
+    img.style.transform = `
+      translate(${translateX}px, ${translateY}px)
+      scale(${scale})
+      rotate(${rotation}deg)
+    `;
   }
 
   // =========================
@@ -55,28 +68,30 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("zoomIn").onclick = () => {
     scale += 0.2;
     scale = Math.min(scale, 3);
-    applyTransform();
+    updateTransform();
   };
 
   document.getElementById("zoomOut").onclick = () => {
     scale -= 0.2;
     scale = Math.max(scale, 0.5);
-    applyTransform();
+    updateTransform();
   };
 
   document.getElementById("rotate").onclick = () => {
     rotation += 90;
-    applyTransform();
+    updateTransform();
   };
 
   document.getElementById("reset").onclick = () => {
     scale = 1;
     rotation = 0;
-    applyTransform();
+    translateX = 0;
+    translateY = 0;
+    updateTransform();
   };
 
   // =========================
-  // WHEEL ZOOM (FIXED)
+  // WHEEL ZOOM
   // =========================
 
   viewer.addEventListener("wheel", (e) => {
@@ -92,6 +107,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     scale = Math.min(Math.max(0.5, scale), 3);
 
-    applyTransform(); // 🔥 используем ТУ ЖЕ функцию
+    updateTransform();
+  });
+
+  // =========================
+  // DRAG
+  // =========================
+
+  viewer.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    viewer.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    viewer.style.cursor = "grab";
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+
+    updateTransform();
   });
 });

@@ -842,11 +842,72 @@ textarea:valid ~ label {
 }
 
 .sim-title {
-  font-size: 48px;
+  font-size: 28px;
   color: white;
   font-weight: bold;
   margin-bottom: 30px;
   text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.7);
+}
+.welcome-box {
+  padding: 10px 20px;
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 420px;
+}
+.welcome-content {
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+
+  background: rgba(20, 35, 50, 0.55);
+  border-radius: 16px;
+
+  margin-top: 50px;
+
+  padding: 32px;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.welcome-content::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: #ff2e63;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+.landing-text {
+  color: #c9d1d9;
+  line-height: 1.5;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.landing-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.step {
+  color: #9aa6b2;
+  font-size: 17px;
+}
+
+.display-panel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 60px;
 }
 
 .simulator-container {
@@ -866,8 +927,32 @@ textarea:valid ~ label {
 
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 
-  overflow: hidden; /* 🔥 ключевая строка */
+  overflow: hidden;
   transform: scale(0.97);
+}
+
+/* .step {
+  font-size: 14px;
+  color: white;
+  opacity: 0.9;
+} */
+
+.start-btn {
+  margin-top: 18px;
+  padding: 10px 18px;
+
+  border-radius: 10px;
+  background: #c1002a;
+  color: white;
+
+  text-decoration: none;
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+.start-btn:hover {
+  background: #a00023;
 }
 
 /* LEFT SIDE */
@@ -948,8 +1033,11 @@ textarea:valid ~ label {
   margin-top: 30px;
   max-width: 100%;
 }
+
 .page-title {
-  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
 }
 
 .segment-controls {
@@ -1157,4 +1245,3 @@ textarea:valid ~ label {
 .ng-btn.active:hover {
   background: #b71c1c; /* mörkare röd */
 }
-
