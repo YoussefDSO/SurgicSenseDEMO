@@ -1,13 +1,17 @@
 :root {
   --clr: #636363;
 }
-/* Top header */
+/* ===== TOP HEADER ===== */
 .top-header {
   background: rgba(193, 0, 42, 0.95);
-  padding: 0.5rem 1.5rem;
+
+  height: 60px;
+  padding: 0 20px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -15,18 +19,20 @@
 .header-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 10px;
 }
 
+/* Логотип */
 .top-header img {
-  height: 50px;
-  width: auto;
+  height: 36px;
 }
 
+/* Текст */
 .top-header h1 {
-  font-size: 1.3rem;
+  font-size: 16px;
   font-weight: 500;
   margin: 0;
+  line-height: 1;
 }
 
 .compact-nav {
@@ -110,7 +116,7 @@ header {
   backdrop-filter: blur(6px);
 }
 
-header img {
+/* header img {
   margin-right: 2rem;
   width: 130px;
   height: 130px;
@@ -119,7 +125,7 @@ header img {
 header h1 {
   font-size: 1.5rem;
   margin-left: 1rem;
-}
+} */
 
 section h2,
 section h3 {
@@ -761,8 +767,7 @@ textarea:valid ~ label {
   padding: 16px;
   border-radius: 16px;
 
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.06);
 
   text-align: center;
 }
@@ -833,7 +838,7 @@ textarea:valid ~ label {
 
 .simulator-wrapper {
   text-align: center;
-  padding-top: 40px;
+  padding-top: 10px;
 }
 
 .sim-title {
@@ -845,24 +850,33 @@ textarea:valid ~ label {
 }
 
 .simulator-container {
-  width: 950px;
-  min-height: 550px;
-  margin: 0 auto;
+  width: 900px;
+  height: 499px;
+
+  margin: 20px auto;
+
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(15px);
+
   border-radius: 20px;
   display: flex;
-  padding: 30px;
-  gap: 30px;
+
+  padding: 20px;
+  gap: 20px;
+
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+
+  overflow: hidden; /* 🔥 ключевая строка */
+  transform: scale(0.97);
 }
 
 /* LEFT SIDE */
 .menu-panel {
-  width: 220px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-top: 30px;
 }
 
 .menu-btn {
@@ -896,6 +910,7 @@ textarea:valid ~ label {
   /* padding: 40px; */
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .display-box {
@@ -998,6 +1013,7 @@ textarea:valid ~ label {
 
   border-radius: 6px;
 }
+
 .menu-btn.active {
   background: #c7202f;
   color: white;
@@ -1007,12 +1023,13 @@ textarea:valid ~ label {
   background: #c7202f;
   color: white;
 }
+
 .header-left img {
-  height: 55px;
+  height: 36px;
+  padding: 4px;
   background: white;
-  padding: 6px;
   border-radius: 6px;
-  margin-right: 15px;
+  display: block;
 }
 /* FIX EDIT PROFILE LAYOUT */
 
@@ -1086,42 +1103,4 @@ textarea:valid ~ label {
   background: #d62828;
   color: white;
   cursor: pointer;
-}
-
-/* VIEW PAGE */
-
-.viewer-container {
-  margin-top: 30px;
-  text-align: center;
-}
-
-#viewer {
-  min-height: 300px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-  position: relative;
-
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-#viewer img {
-  max-width: 100%;
-  max-height: 400px;
-
-  transform-origin: center center;
-
-  transition: transform 0.2s ease;
-}
-
-.viewer-controls {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
 }

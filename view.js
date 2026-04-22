@@ -45,31 +45,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyTransform() {
     if (!img) return;
-
     img.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
   }
 
   // =========================
-  // CONTROLS
+  // BUTTON CONTROLS
   // =========================
 
   document.getElementById("zoomIn").onclick = () => {
     scale += 0.2;
+    scale = Math.min(scale, 3);
     applyTransform();
   };
 
   document.getElementById("zoomOut").onclick = () => {
-    scale = Math.max(0.2, scale - 0.2);
+    scale -= 0.2;
+    scale = Math.max(scale, 0.5);
     applyTransform();
   };
 
-  document.getElementById("rotateLeft").onclick = () => {
-    rotation -= 15;
-    applyTransform();
-  };
-
-  document.getElementById("rotateRight").onclick = () => {
-    rotation += 15;
+  document.getElementById("rotate").onclick = () => {
+    rotation += 90;
     applyTransform();
   };
 
@@ -78,4 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
     rotation = 0;
     applyTransform();
   };
+
+  // =========================
+  // WHEEL ZOOM (FIXED)
+  // =========================
+
+  viewer.addEventListener("wheel", (e) => {
+    e.preventDefault();
+
+    const zoomSpeed = 0.1;
+
+    if (e.deltaY < 0) {
+      scale += zoomSpeed;
+    } else {
+      scale -= zoomSpeed;
+    }
+
+    scale = Math.min(Math.max(0.5, scale), 3);
+
+    applyTransform(); // 🔥 используем ТУ ЖЕ функцию
+  });
 });

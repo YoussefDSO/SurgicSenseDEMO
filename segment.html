@@ -9,6 +9,7 @@
   </head>
 
   <body class="simulator-body">
+    <!-- HEADER -->
     <header class="top-header">
       <div class="header-left">
         <img src="Images/logo.png" alt="Logo" />
@@ -34,39 +35,41 @@
         <div class="display-panel">
           <h2 class="page-title">Segmentation</h2>
 
+          <!-- TOP CONTROLS -->
           <div class="segment-controls">
-            <!-- CURRENT MODEL -->
             <div class="model-row">
-              <label for="modelSelect">Scan:</label>
-
-              <select id="modelSelect" class="menu-btn small-select">
-                <option value="">Select a scan</option>
-              </select>
+              <label>Scan:</label>
+              <span id="currentModelText">—</span>
+              <button id="changeBtn" class="small-btn">Change</button>
             </div>
-
-            <!-- BUTTON -->
-            <button id="segmentBtn" class="action-btn">Run Segmentation</button>
-
-            <!-- LOADER -->
-            <div id="loader" class="loader hidden"></div>
+            <button id="segmentBtn" class="action-btn">
+              <span id="btnText">Run Segmentation</span>
+              <span id="btnLoader" class="btn-loader hidden"></span>
+            </button>
           </div>
 
-          <!-- SIDE BY SIDE -->
-          <div class="results-row">
-            <div class="result-block">
-              <h3>Preview</h3>
-              <div id="preview"></div>
-            </div>
+          <!-- RESULTS -->
+          <div class="results-wrapper">
+            <div class="results-row">
+              <!-- PREVIEW -->
+              <div class="result-block">
+                <h3>Preview</h3>
+                <div id="preview"></div>
+              </div>
 
-            <div class="result-block">
-              <h3>Segmentation Result</h3>
-              <div id="result"></div>
+              <!-- RESULT -->
+              <div class="result-block">
+                <h3>Segmentation Result</h3>
+                <div class="result-inner">
+                  <!-- <div id="loader" class="loader hidden"></div> -->
+                  <div id="result"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <script src="segment.js"></script>
   </body>
 </html>

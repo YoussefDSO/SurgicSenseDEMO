@@ -1,64 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
   const API_BASE = "http://localhost:8000";
 
-  const select = document.getElementById("modelSelect");
-  const resultBox = document.getElementById("result");
   const previewBox = document.getElementById("preview");
-  const loader = document.getElementById("loader");
+  const resultBox = document.getElementById("result");
+
+  const currentModelText = document.getElementById("currentModelText");
+
+  const segmentBtn = document.getElementById("segmentBtn");
+  const changeBtn = document.getElementById("changeBtn");
+
+  //  loader
+  const btnText = document.getElementById("btnText");
+  const btnLoader = document.getElementById("btnLoader");
 
   // =========================
-  // FORMAT NAME WITH DATE
+  // GET MODEL FROM STORAGE
   // =========================
-  function formatModelName(name) {
-    const parts = name.split("_");
+  const model = localStorage.getItem("lastModelName");
 
-    if (parts.length < 2) return name;
-
-    const base = parts[0];
-    const timestamp = parts[1];
-
-    const date = new Date(Number(timestamp));
-
-    if (isNaN(date)) return base;
-
-    const formatted = date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-    });
-
-    return `${base} (${formatted})`;
+  if (!model) {
+    currentModelText.textContent = "No model selected";
+    segmentBtn.disabled = true;
+    return;
   }
 
-  // =========================
-  // LOAD MODELS
-  // =========================
-  async function loadModels() {
-    try {
-      const res = await fetch(`${API_BASE}/api/models`);
-      const models = await res.json();
-
-      select.innerHTML = '<option value="">Select a scan</option>';
-
-      models.forEach((model) => {
-        const option = document.createElement("option");
-        option.value = model; // важно: оригинал
-        option.textContent = formatModelName(model); // красиво
-        select.appendChild(option);
-      });
-    } catch (err) {
-      console.error("Failed to load models:", err);
-    }
-  }
-
-  loadModels();
+  currentModelText.textContent = model;
 
   // =========================
-  // AUTO PREVIEW ON SELECT
+  // LOAD PREVIEW
   // =========================
-  select.addEventListener("change", async () => {
-    const model = select.value;
-    if (!model) return;
+  loadPreview(model);
 
+  async function loadPreview(model) {
     try {
       const formData = new FormData();
       formData.append("model_name", model);
@@ -68,47 +41,30 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       });
 
+      if (!res.ok) throw new Error("Preview failed");
+
       const data = await res.json();
 
       previewBox.innerHTML = "";
 
       const img = document.createElement("img");
-      img.src = `${API_BASE}${data.texture_url}`;
+      img.src = `${API_BASE}${data.texture_url}?t=${Date.now()}`;
 
       previewBox.appendChild(img);
-
-      localStorage.setItem("lastModelName", model);
     } catch (err) {
-      console.error(err);
+      previewBox.innerHTML = "<p>Preview failed</p>";
     }
-  });
-
-  // =========================
-  // AUTO SELECT LAST MODEL
-  // =========================
-  const lastModel = localStorage.getItem("lastModelName");
-
-  if (lastModel) {
-    setTimeout(() => {
-      select.value = lastModel;
-      select.dispatchEvent(new Event("change"));
-    }, 300);
   }
 
   // =========================
   // SEGMENT
   // =========================
-  document.getElementById("segmentBtn").addEventListener("click", async () => {
-    const model = select.value;
-
-    if (!model) {
-      alert("Please select a model");
-      return;
-    }
+  segmentBtn.onclick = async () => {
+    btnText.textContent = "Processing...";
+    btnLoader.classList.remove("hidden");
+    segmentBtn.disabled = true;
 
     try {
-      loader.classList.remove("hidden");
-
       const formData = new FormData();
       formData.append("model_name", model);
       formData.append("method", "kmeans Jay");
@@ -118,7 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       });
 
-      if (!res.ok) throw new Error("Segmentation failed");
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Segmentation failed");
+      }
 
       const data = await res.json();
 
@@ -126,13 +85,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const img = document.createElement("img");
       img.src = `${API_BASE}${data.texture_url}?t=${Date.now()}`;
-      localStorage.setItem("lastResult", `${API_BASE}${data.texture_url}`);
 
       resultBox.appendChild(img);
+
+      localStorage.setItem("lastResult", `${API_BASE}${data.texture_url}`);
     } catch (err) {
       alert(err.message);
     } finally {
-      loader.classList.add("hidden");
+      btnText.textContent = "Run Segmentation";
+      btnLoader.classList.add("hidden");
+      segmentBtn.disabled = false;
     }
-  });
+  };
+
+  // =========================
+  // CHANGE BUTTON
+  // =========================
+  changeBtn.onclick = () => {
+    window.location.href = "upload-scan.html";
+  };
 });

@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const select = document.getElementById("modelSelect");
   const preview = document.getElementById("preview");
+  const placeholder = document.getElementById("placeholder");
   const loader = document.getElementById("loader");
+
   const uploadBtn = document.getElementById("uploadModelBtn");
-  const messageBox = document.getElementById("uploadMessage");
+  const messageBox = document.getElementById("uploadStatus");
 
   const objInput = document.getElementById("objInput");
   const textureInput = document.getElementById("textureInput");
@@ -26,20 +28,27 @@ document.addEventListener("DOMContentLoaded", () => {
         option.textContent = model;
         select.appendChild(option);
       });
+    })
+    .catch(() => {
+      messageBox.textContent = "Failed to load models";
+      messageBox.className = "upload-message error";
     });
 
   // =========================
-  // DEMO PREVIEW
+  // DEMO PREVIEW (FIXED)
   // =========================
   select.addEventListener("change", async () => {
     const model = select.value;
 
     if (!model) {
-      preview.innerHTML = "";
+      preview.style.display = "none";
+      placeholder.style.display = "block";
       return;
     }
 
     try {
+      loader?.classList.remove("hidden");
+
       const formData = new FormData();
       formData.append("model_name", model);
 
@@ -48,23 +57,28 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
       });
 
+      if (!res.ok) throw new Error("Preview failed");
+
       const data = await res.json();
 
-      preview.innerHTML = "";
-
-      const img = document.createElement("img");
-      img.src = `${API_BASE}${data.texture_url}`;
-
-      preview.appendChild(img);
+      preview.src = `${API_BASE}${data.texture_url}`;
+      preview.style.display = "block";
+      placeholder.style.display = "none";
 
       localStorage.setItem("lastModelName", model);
-    } catch {
-      preview.innerHTML = "<p>Preview failed</p>";
+      localStorage.setItem("uploadedScan", preview.src);
+    } catch (err) {
+      preview.style.display = "none";
+      placeholder.style.display = "block";
+      messageBox.textContent = "Preview failed";
+      messageBox.className = "upload-message error";
+    } finally {
+      loader?.classList.add("hidden");
     }
   });
 
   // =========================
-  // UPLOAD PREVIEW
+  // UPLOAD PREVIEW (LOCAL FILE)
   // =========================
   textureInput.addEventListener("change", () => {
     const file = textureInput.files[0];
@@ -72,11 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const url = URL.createObjectURL(file);
 
-    preview.innerHTML = "";
-    const img = document.createElement("img");
-    img.src = url;
+    preview.src = url;
+    preview.style.display = "block";
+    placeholder.style.display = "none";
 
-    preview.appendChild(img);
+    localStorage.setItem("uploadedScan", url);
   });
 
   // =========================
@@ -108,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("zip_file", file);
 
     try {
-      loader.classList.remove("hidden");
+      loader?.classList.remove("hidden");
 
       const res = await fetch(`${API_BASE}/api/upload-zip`, {
         method: "POST",
@@ -125,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
       messageBox.textContent = err.message;
       messageBox.className = "upload-message error";
     } finally {
-      loader.classList.add("hidden");
+      loader?.classList.add("hidden");
     }
   });
 
@@ -138,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectedModel = select.value;
 
-    // DEMO
+    // 👉 DEMO → просто перейти дальше
     if (selectedModel) {
       localStorage.setItem("lastModelName", selectedModel);
       window.location.href = "segment.html";
@@ -164,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("model_name", baseName);
 
     try {
-      loader.classList.remove("hidden");
+      loader?.classList.remove("hidden");
 
       const res = await fetch(`${API_BASE}/api/upload`, {
         method: "POST",
@@ -174,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const text = await res.text();
 
       if (res.status === 409) {
-        messageBox.textContent = "This scan has already been uploaded.";
+        messageBox.textContent = "This scan already exists.";
         messageBox.className = "upload-message warning";
         return;
       }
@@ -195,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
       messageBox.textContent = err.message;
       messageBox.className = "upload-message error";
     } finally {
-      loader.classList.add("hidden");
+      loader?.classList.add("hidden");
     }
   };
 });

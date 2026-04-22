@@ -19,6 +19,7 @@
     <div class="simulator-wrapper">
       <div class="simulator-container">
         <!-- LEFT MENU -->
+
         <div class="menu-panel">
           <a href="upload-scan.html" class="menu-btn active">Upload Scan</a>
           <a href="segment.html" class="menu-btn">Segment</a>
@@ -27,53 +28,62 @@
           <a href="print.html" class="menu-btn">Print</a>
           <a href="assess-wound.html" class="menu-btn">Assess Wound</a>
           <a href="#" id="saveBtn" class="menu-btn">Save</a>
-          <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
+          <a href="index.html" id="logoutBtn" class="menu-btn logout"
+            >Log Out</a
+          >
         </div>
 
         <!-- RIGHT PANEL -->
         <div class="display-panel">
           <h2 class="page-title">Upload Scan</h2>
 
-          <div class="segment-controls">
-            <!-- DEMO SELECT -->
-            <select id="modelSelect" class="menu-btn">
-              <option value="">Select a scan</option>
-            </select>
+          <div class="upload-layout">
+            <!-- LEFT SIDE (controls) -->
+            <div class="upload-controls">
+              <!-- SELECT DEMO -->
+              <select id="modelSelect" class="select-input">
+                <option value="">Select a scan</option>
+              </select>
 
-            <!-- UPLOAD -->
-            <label class="upload-btn">
-              <span id="objLabel">Upload OBJ file</span>
-              <input type="file" id="objInput" accept=".obj" />
-            </label>
+              <!-- FILE INPUTS -->
+              <label class="upload-btn">
+                <span id="objLabel">Upload OBJ file</span>
+                <input type="file" id="objInput" accept=".obj" />
+              </label>
 
-            <label class="upload-btn">
-              <span id="textureLabel">Upload texture</span>
-              <input type="file" id="textureInput" accept=".jpg,.png" />
-            </label>
+              <label class="upload-btn">
+                <span id="textureLabel">Upload texture</span>
+                <input type="file" id="textureInput" accept=".jpg,.png" />
+              </label>
 
-            <label class="upload-btn">
-              <span id="mtlLabel">Upload MTL file</span>
-              <input type="file" id="mtlInput" accept=".mtl" />
-            </label>
+              <label class="upload-btn">
+                <span id="mtlLabel">Upload MTL file</span>
+                <input type="file" id="mtlInput" accept=".mtl" />
+              </label>
 
-            <label class="upload-btn">
-              <span id="zipLabel">Upload ZIP folder</span>
-              <input type="file" id="zipInput" accept=".zip" />
-            </label>
+              <!-- ZIP -->
+              <label class="upload-btn">
+                <span id="zipLabel">Upload ZIP folder</span>
+                <input type="file" id="zipInput" accept=".zip" />
+              </label>
 
-            <!-- UPLOAD BUTTON -->
-            <button id="uploadModelBtn" class="action-btn">Upload Scan</button>
-            <p id="uploadMessage" class="upload-message"></p>
+              <!-- BUTTON -->
+              <button id="uploadModelBtn" class="action-btn">
+                Upload Scan
+              </button>
 
-            <!-- LOADER -->
-            <div id="loader" class="loader hidden"></div>
-          </div>
+              <!-- STATUS -->
+              <p id="uploadStatus" class="status-text"></p>
+            </div>
 
-          <!-- PREVIEW -->
-          <div class="results">
-            <!-- <h3>Preview</h3> -->
-            <div id="preview">
-              <p id="placeholder"></p>
+            <!-- RIGHT SIDE (preview) -->
+            <div class="preview-section">
+              <h3>Preview</h3>
+
+              <div class="preview-box">
+                <img id="preview" />
+                <p id="placeholder">No preview yet</p>
+              </div>
             </div>
           </div>
         </div>
