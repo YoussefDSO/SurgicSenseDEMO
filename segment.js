@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const API_BASE = "http://localhost:8000";
+  // const API_BASE = "http://localhost:8000";
 
   const previewBox = document.getElementById("preview");
   const resultBox = document.getElementById("result");
