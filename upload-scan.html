@@ -16,9 +16,18 @@
       </div>
     </header>
 
+<<<<<<< HEAD
     <div class="simulator-wrapper">
       <div class="simulator-container">
         <!-- LEFT MENU -->
+=======
+<header class="top-header">
+<div class="header-left">
+<img src="Images/logo.png">
+<h1>Advancing Medicine with Technology & AI</h1>
+</div>
+</header>
+>>>>>>> origin/main
 
         <div class="menu-panel">
           <a href="upload-scan.html" class="menu-btn active">Upload Scan</a>
@@ -33,6 +42,7 @@
           >
         </div>
 
+<<<<<<< HEAD
         <!-- RIGHT PANEL -->
         <div class="display-panel">
           <h2 class="page-title">Upload Scan</h2>
@@ -44,6 +54,16 @@
               <select id="modelSelect" class="select-input">
                 <option value="">Select a scan</option>
               </select>
+=======
+<div class="menu-panel">
+
+<a href="upload-scan.html" class="menu-btn active">Upload Scan</a>
+<a href="segment.html" class="menu-btn">Segment</a>
+<a href="edit-profile.html" class="menu-btn">Edit Profile</a>
+<a href="view.html" class="menu-btn">View</a>
+<a href="assess-wound.html" class="menu-btn">Assess Wound</a>
+<a href="print.html" class="menu-btn">Print</a>
+>>>>>>> origin/main
 
               <!-- FILE INPUTS -->
               <label class="upload-btn">
@@ -56,10 +76,14 @@
                 <input type="file" id="textureInput" accept=".jpg,.png" />
               </label>
 
+<<<<<<< HEAD
               <label class="upload-btn">
                 <span id="mtlLabel">Upload MTL file</span>
                 <input type="file" id="mtlInput" accept=".mtl" />
               </label>
+=======
+<div class="display-panel">
+>>>>>>> origin/main
 
               <!-- ZIP -->
               <label class="upload-btn">
@@ -67,6 +91,7 @@
                 <input type="file" id="zipInput" accept=".zip" />
               </label>
 
+<<<<<<< HEAD
               <!-- BUTTON -->
               <button id="uploadModelBtn" class="action-btn">
                 Upload Scan
@@ -75,6 +100,10 @@
               <!-- STATUS -->
               <p id="uploadStatus" class="status-text"></p>
             </div>
+=======
+<button id="uploadBtn" class="action-btn">Choose Image</button>
+<input type="file" id="fileInput" accept="image/*" hidden>
+>>>>>>> origin/main
 
             <!-- RIGHT SIDE (preview) -->
             <div class="preview-section">
@@ -90,6 +119,87 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <script src="upload-scan.js"></script>
   </body>
+=======
+<div class="preview-container">
+<img id="previewImage" style="display:none; max-width:100%; max-height:260px; border-radius:8px;">
+<p id="placeholder">Uploaded scan will appear here</p>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+const uploadBtn = document.getElementById("uploadBtn");
+const fileInput = document.getElementById("fileInput");
+const previewImage = document.getElementById("previewImage");
+const placeholder = document.getElementById("placeholder");
+const fileName = document.getElementById("fileName");
+const removeBtn = document.getElementById("removeBtn");
+
+uploadBtn.onclick = () => fileInput.click();
+
+fileInput.addEventListener("change", function(){
+
+const file = fileInput.files[0];
+
+if(!file || !file.type.startsWith("image/")){
+alert("Upload a valid image");
+return;
+}
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+const imageData = e.target.result;
+
+previewImage.src = imageData;
+previewImage.style.display = "block";
+placeholder.style.display = "none";
+fileName.textContent = file.name;
+
+/* SKAPA CASE */
+const caseData = {
+scanImage: imageData,
+segmentedImage: null,
+assessment: null
+};
+
+localStorage.setItem("currentCase", JSON.stringify(caseData));
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+removeBtn.onclick = function(){
+
+localStorage.removeItem("currentCase");
+
+previewImage.style.display = "none";
+placeholder.style.display = "block";
+fileName.textContent = "No file selected";
+
+};
+
+document.getElementById("saveBtn").onclick = e => {
+e.preventDefault();
+alert("Saved");
+};
+
+document.getElementById("logoutBtn").onclick = e => {
+e.preventDefault();
+window.location.href = "index.html";
+};
+
+</script>
+
+</body>
+>>>>>>> origin/main
 </html>

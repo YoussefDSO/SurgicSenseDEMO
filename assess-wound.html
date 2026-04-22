@@ -27,8 +27,9 @@
 <a href="segment.html" class="menu-btn">Segment</a>
 <a href="edit-profile.html" class="menu-btn">Edit Profile</a>
 <a href="view.html" class="menu-btn">View</a>
-<a href="print.html" class="menu-btn">Print</a>
+
 <a href="assess-wound.html" class="menu-btn active">Assess Wound</a>
+<a href="print.html" class="menu-btn">Print</a>
 
 <a href="#" id="saveBtn" class="menu-btn">Save</a>
 <a href="#" id="logoutBtn" class="menu-btn logout">Log Out</a>
@@ -39,14 +40,13 @@
 <div class="display-panel">
 
 <h2 class="page-title">Wound Assessment</h2>
-
 <p>Fill in the wound assessment information.</p>
 
 <form class="assess-form">
 
 <div class="form-group">
 <label>Size</label>
-<select>
+<select id="size">
 <option>Small</option>
 <option>Medium</option>
 <option>Large</option>
@@ -55,7 +55,7 @@
 
 <div class="form-group">
 <label>Depth</label>
-<select>
+<select id="depth">
 <option>Superficial</option>
 <option>Partial</option>
 <option>Deep</option>
@@ -64,7 +64,7 @@
 
 <div class="form-group">
 <label>Necrotic Tissue Type</label>
-<select>
+<select id="necroticType">
 <option>None</option>
 <option>Slough</option>
 <option>Eschar</option>
@@ -73,7 +73,7 @@
 
 <div class="form-group">
 <label>Total Amount of Necrotic Tissue</label>
-<select>
+<select id="necroticAmount">
 <option>None</option>
 <option>Low</option>
 <option>High</option>
@@ -82,7 +82,7 @@
 
 <div class="form-group">
 <label>Granulation Tissue Type</label>
-<select>
+<select id="granulationType">
 <option>Healthy</option>
 <option>Pale</option>
 <option>Absent</option>
@@ -91,7 +91,7 @@
 
 <div class="form-group">
 <label>Total Amount of Granulation Tissue</label>
-<select>
+<select id="granulationAmount">
 <option>Low</option>
 <option>Medium</option>
 <option>High</option>
@@ -100,7 +100,7 @@
 
 <div class="form-group">
 <label>Edges</label>
-<select>
+<select id="edges">
 <option>Healthy</option>
 <option>Irregular</option>
 <option>Rolled</option>
@@ -109,7 +109,7 @@
 
 <div class="form-group">
 <label>Periulcer Skin Viability</label>
-<select>
+<select id="skin">
 <option>Healthy</option>
 <option>At Risk</option>
 <option>Damaged</option>
@@ -131,22 +131,47 @@ Save Assessment
 
 <script>
 
-/* SAVE ASSESSMENT /
+/* SAVE ASSESSMENT + GO TO PRINT */
 
 document.getElementById("saveAssessment").onclick = function(){
 
-alert("Assessment saved successfully.");
+let caseData = JSON.parse(localStorage.getItem("currentCase"));
+
+if(!caseData){
+alert("No scan found. Please upload and segment first.");
+return;
+}
+
+// SPARA ALL DATA
+caseData.assessment = {
+size: document.getElementById("size").value,
+depth: document.getElementById("depth").value,
+necroticType: document.getElementById("necroticType").value,
+necroticAmount: document.getElementById("necroticAmount").value,
+granulationType: document.getElementById("granulationType").value,
+granulationAmount: document.getElementById("granulationAmount").value,
+edges: document.getElementById("edges").value,
+skin: document.getElementById("skin").value
+};
+
+// SPARA I SYSTEMET
+localStorage.setItem("currentCase", JSON.stringify(caseData));
+
+// GÅ TILL PRINT (RAPPORT)
+window.location.href = "print.html";
 
 };
 
-/ SAVE BUTTON /
+
+/* SAVE BUTTON */
 
 document.getElementById("saveBtn").onclick = function(e){
 e.preventDefault();
 alert("Your work has been saved successfully.");
 };
 
-/ LOGOUT */
+
+/* LOGOUT */
 
 document.getElementById("logoutBtn").onclick = function(e){
 e.preventDefault();
